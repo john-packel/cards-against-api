@@ -1,9 +1,9 @@
-var babel = require('babel-register'),
-    bodyParser = require('body-parser'),
-    path = require('path'),
-    express = require('express');
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
 
-var app = express();
+const app = express();
+const port = 3000;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -12,6 +12,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../', 'index.html'))
 });
 
-app.listen(3000, () => (
-  console.log('listening on port 3000!')
-));
+app.listen(port, () => {
+  console.log('listening on port', port);
+});
