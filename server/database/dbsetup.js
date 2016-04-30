@@ -3,7 +3,7 @@ import co from 'co';
 
 export default co(function*() {
   // Connection URL
-  var url = 'mongodb://localhost:27017/myproject';
+  var url = 'mongodb://localhost:27017/cardsAPI';
   // Use connect method to connect to the Server
   var db = yield MongoClient.connect(url);
   // Close the connection
