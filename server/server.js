@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
-// import db from './database/dbsetup';
+import db from './database/dbsetup';
 
 const app = express();
 const port = 3000;

@@ -1,8 +1,7 @@
 import { MongoClient } from 'mongodb';
-// import co from 'co';
 
 let cardsController = function*(req, res) {
-  console.log('REQ:', req);
+  // console.log('REQ:', req);
 
   // Connection URL
   const url = 'mongodb://localhost:27017/cardsAPI';
@@ -12,10 +11,9 @@ let cardsController = function*(req, res) {
 
   // Retrieve cards
   let col = db.collection('decks');
+  console.log('col:', col);
   let cards = yield col.find().toArray();
 
-  console.log('cards:', cards);
-  // Close the connection
   db.close();
 
   return cards;
