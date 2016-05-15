@@ -1,7 +1,7 @@
 
 let validationHelpers = {};
 
-let config = {
+const config = {
   max_players: 20,
   min_players: 1,
   max_cards: 1000,
@@ -26,41 +26,48 @@ validationHelpers.isValidString = (val) => {
 };
 
 validationHelpers.isValidCardType = (val) => {
-  var cardType = {
+  const cardType = {
     white: true,
     black: true,
     both: true
   };
 
+  // create an array of card types to dynamically generate list of possible card type values in error message
+  let cardTypeList = Object.keys(cardType);
+
   if(cardType[val.toLowerCase()]) {
     return true;    
   }
-  return "Card type must be black or white";
+  return "Parameter cardType must be " + cardTypeList.slice(0,-1).join(', ') + " or " + cardTypeList.slice(-1);
 };
 
 validationHelpers.isValidCardRange = (val) => {
-  console.log("isvalidcardrange:", val);
   if(validationHelpers.isValidInteger(val) && val >= config["min_cards"] && val <= config["max_cards"]) {
     return true;
   }
-  return "Num of cards must be between " + config["min_cards"] + " and " + config["max_cards"];
+  return "Parameter numCards must be integer between " + config["min_cards"] + " and " + config["max_cards"];
 };
 
 validationHelpers.isValidPlayerRange = (val) => {
   if(val >= config["min_players"] && val <= config["max_players"]) {
     return true;
   }
-  return "Num of players must be between " + config["min_players"] + " and " + config["max_players"];
+  return "Parameter numPlayers must be between " + config["min_players"] + " and " + config["max_players"];
 };
 
 validationHelpers.isValidPackName = (packs) => {
-  var error = false;
-  packs.forEach((val) => {
+  let error = false;
+  let isNotValidPackName;
+
+  packs.split(' ').forEach((val) => {
     if(!validationHelpers.isValidString(val) || !config["pack_names"][val]) {
       error = true;
+      isNotValidPackName = val;
     }
   });
-  return error ? "All pack names must be valid" : true; 
+
+  let errorMsg = 'Parameter packNames must contain all valid pack names. ' + isNotValidPackName + ' is not a valid pack name.';
+  return error ? errorMsg : true; 
 };
 
 validationHelpers.validParams = {

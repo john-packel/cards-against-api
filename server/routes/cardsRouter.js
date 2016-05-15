@@ -8,6 +8,7 @@ const cardsRouter = Router();
 
 cardsRouter.use(setQueryParams);
 cardsRouter.use(validateQueryParams);
+cardsRouter.use(errorHandler);
 
 cardsRouter.get('/', (req, res) => {
   co(cardsController.fetchCards(req, res)).then(val => {
@@ -25,6 +26,7 @@ function setQueryParams(req,res,next) {
   	shuffle: false,
   	cardType: "both"
    };
+   console.log("set query param")
    // allow user parameters to override default parameters 
    req["cahapi_settings"] = Object.assign(defaultSettings, req.query);
    next();
@@ -32,16 +34,23 @@ function setQueryParams(req,res,next) {
 
 function validateQueryParams(req,res,next) {
   let userParams = req.cahapi_settings;
-
+  
   for(let param in userParams) {
     if(validationHelpers.validParams[param]) {
       // invoke validation function for param value 
-      if(!validationHelpers.validParams[param](userParams[param])) {
-        // ** invoke error handling function and pass error **
+      var isValid = validationHelpers.validParams[param](userParams[param]);
+      if(isValid !== true) {
+        console.log("isError:", isValid);
+        next(isValid);
       }
     } 
   } 
   next();
+}
+
+function errorHandler(err, req, res, next) {
+  res.status(500);
+  res.send({ error: err });
 }
 
 export default cardsRouter;
