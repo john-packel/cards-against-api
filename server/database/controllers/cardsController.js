@@ -18,6 +18,4 @@ const cardsController = {
   }
 };
 
-
-
 export default cardsController;
