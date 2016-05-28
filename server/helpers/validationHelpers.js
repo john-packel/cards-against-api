@@ -1,21 +1,19 @@
 
-import config from '../routes/api/config.js';
+let helpers = {};
 
-let validationHelpers = {};
-
-validationHelpers.isBoolean = (val) => {
-  return typeof val === "boolean";
+helpers.isBoolean = (val) => {
+  return typeof Boolean(val) === "boolean";
 };
 
-validationHelpers.isValidInteger = (val) => {
-validationHelpers.isValidString = (val) => {
-  return typeof Number(val) === "number";
+helpers.isValidInteger = (val) => {
+  return typeof val === "number";
 };
 
+helpers.isValidString = (val) => {
   return typeof val === "string";
 };
 
-validationHelpers.isValidCardType = (val) => {
+helpers.isValidCardType = (val) => {
   const cardType = {
     white: true,
     black: true,
@@ -28,29 +26,29 @@ validationHelpers.isValidCardType = (val) => {
   if(cardType[val.toLowerCase()]) {
     return true;    
   }
-  return "Parameter cardtype must be " + cardTypeList.slice(0,-1).join(', ') + " or " + cardTypeList.slice(-1);
+  return "Parameter cardType must be " + cardTypeList.slice(0,-1).join(', ') + " or " + cardTypeList.slice(-1);
 };
 
-validationHelpers.isValidCardRange = (val) => {
-  if(validationHelpers.isValidInteger(val) && val >= config["min_cards"] && val <= config["max_cards"]) {
+helpers.isValidCardRange = (val) => {
+  if(helpers.isValidInteger(val) && val >= config["min_cards"] && val <= config["max_cards"]) {
     return true;
   }
-  return "Parameter numcards must be integer between " + config["min_cards"] + " and " + config["max_cards"];
+  return "Parameter numCards must be integer between " + config["min_cards"] + " and " + config["max_cards"];
 };
 
-validationHelpers.isValidPlayerRange = (val) => {
+helpers.isValidPlayerRange = (val) => {
   if(val >= config["min_players"] && val <= config["max_players"]) {
     return true;
   }
-  return "Parameter numplayers must be between " + config["min_players"] + " and " + config["max_players"];
+  return "Parameter numPlayers must be between " + config["min_players"] + " and " + config["max_players"];
 };
 
-validationHelpers.isValidPackName = (packs) => {
+helpers.isValidPackName = (packs) => {
   let error = false;
   let isNotValidPackName;
 
   packs.split(' ').forEach((val) => {
-    if(!validationHelpers.isValidString(val) || !config["pack_names"][val]) {
+    if(!helpers.isValidString(val) || !config["pack_names"][val]) {
       error = true;
       isNotValidPackName = val;
     }
@@ -60,13 +58,13 @@ validationHelpers.isValidPackName = (packs) => {
   return error ? errorMsg : true; 
 };
 
-validationHelpers.validParams = {
-  numplayers: validationHelpers.isValidPlayerRange,
-  numcards: validationHelpers.isValidCardRange,
-  shuffle: validationHelpers.isBoolean,
-  cardtype: validationHelpers.isValidCardType,
-  packnames: validationHelpers.isValidPackName,
+helpers.validParams = {
+  numPlayers: helpers.isValidPlayerRange,
+  numCards: helpers.isValidCardRange,
+  shuffle: helpers.isBoolean,
+  cardType: helpers.isValidCardType,
+  packNames: helpers.isValidPackName,
 };
 
-export default validationHelpers;
+export default helpers;
 
