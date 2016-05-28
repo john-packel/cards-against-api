@@ -2,13 +2,14 @@ import { Router } from 'express';
 import co from 'co';
 
 import cardsController from './../../database/controllers/cardsController';
-import validationHelpers from './../../helpers/validationHelpers';
+import queryhelpers from './../../middleware/query.js';
+import errorhelpers from './../../middleware/error.js';
 
 const cardsRouter = Router();
 
-cardsRouter.use(setQueryParams);
-cardsRouter.use(validateQueryParams);
-cardsRouter.use(errorHandler);
+cardsRouter.use(queryhelpers.setQueryParams);
+cardsRouter.use(queryhelpers.validateQueryParams);
+cardsRouter.use(errorhelpers.errorHandler);
 
 cardsRouter.get('/', (req, res) => {
   co(cardsController.fetchCards(req, res)).then(val => {
@@ -17,40 +18,5 @@ cardsRouter.get('/', (req, res) => {
     console.log(err.stack);
   });
 });
-
-// Middleware Functions
-//-----------------------------------------------------------------------------------
-function setQueryParams(req,res,next) {
-  let defaultSettings = {
-  	numcards: 20,
-  	shuffle: false,
-  	cardtype: "both"
-   };
-   console.log("set query param")
-   // allow user parameters to override default parameters 
-   req["cahapi_settings"] = Object.assign(defaultSettings, req.query);
-   next();
-}
-
-function validateQueryParams(req,res,next) {
-  let userParams = req.cahapi_settings;
-  
-  for(let param in userParams) {
-    if(validationHelpers.validParams[param]) {
-      // invoke validation function for param value 
-      var isValid = validationHelpers.validParams[param](userParams[param]);
-      if(isValid !== true) {
-        console.log("isError:", isValid);
-        next(isValid);
-      }
-    } 
-  } 
-  next();
-}
-
-function errorHandler(err, req, res, next) {
-  res.status(500);
-  res.send({ error: err });
-}
 
 export default cardsRouter;
