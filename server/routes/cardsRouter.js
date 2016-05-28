@@ -2,7 +2,7 @@ import { Router } from 'express';
 import co from 'co';
 
 import cardsController from './../database/controllers/cardsController';
-import validationHelpers from './../helpers/validationHelpers';
+import validationHelpers from './../api/helpers/validationHelpers';
 
 const cardsRouter = Router();
 

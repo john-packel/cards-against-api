@@ -1,17 +1,7 @@
 
-let validationHelpers = {};
+import config from '../config.js';
 
-const config = {
-  max_players: 20,
-  min_players: 1,
-  max_cards: 1000,
-  min_cards: 1,
-  pack_names: {
-    "original": true,
-    "expansion one": true,
-    "expansion two": true
-  }
-};
+let validationHelpers = {};
 
 validationHelpers.isBoolean = (val) => {
   return typeof val === "boolean";
@@ -71,11 +61,11 @@ validationHelpers.isValidPackName = (packs) => {
 };
 
 validationHelpers.validParams = {
-  numPlayers: validationHelpers.isValidPlayerRange,
-  numCards: validationHelpers.isValidCardRange,
+  numplayers: validationHelpers.isValidPlayerRange,
+  numcards: validationHelpers.isValidCardRange,
   shuffle: validationHelpers.isBoolean,
-  cardType: validationHelpers.isValidCardType,
-  packNames: validationHelpers.isValidPackName,
+  cardtype: validationHelpers.isValidCardType,
+  packnames: validationHelpers.isValidPackName,
 };
 
 export default validationHelpers;
