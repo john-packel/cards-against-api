@@ -6,7 +6,7 @@ let config = {
     cardtype: "both"
   },
   packs: {
-  	pack_names: 20,
+  	packnames: "original",
     shuffle: false
   }
 }

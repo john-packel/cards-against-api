@@ -8,7 +8,6 @@ let helpers = {};
 helpers.setQueryParams = (req,res,next) => {
   // get the pathname for route after /api 
   let route = req.baseUrl.split('/').pop(); 
-
   // get the default settings object based on routename 
   // allow user parameters to override default settings 
    req["cahapi_settings"] = Object.assign(defaultSettings[route], req.query);
@@ -21,6 +20,7 @@ helpers.validateQueryParams = (req,res,next) => {
 
   for(let param in userParams) {
     param = param.toLowerCase();
+    console.log("param", param);
     if(validationHelpers.validParams[param]) {
       // invoke validation function for param value 
       let isValid = validationHelpers.validParams[param](userParams[param]);
