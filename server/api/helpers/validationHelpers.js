@@ -8,7 +8,7 @@ validationHelpers.isBoolean = (val) => {
 };
 
 validationHelpers.isValidInteger = (val) => {
-  return typeof val === "number";
+  return typeof Number(val) === "number";
 };
 
 validationHelpers.isValidString = (val) => {
@@ -28,21 +28,21 @@ validationHelpers.isValidCardType = (val) => {
   if(cardType[val.toLowerCase()]) {
     return true;    
   }
-  return "Parameter cardType must be " + cardTypeList.slice(0,-1).join(', ') + " or " + cardTypeList.slice(-1);
+  return "Parameter cardtype must be " + cardTypeList.slice(0,-1).join(', ') + " or " + cardTypeList.slice(-1);
 };
 
 validationHelpers.isValidCardRange = (val) => {
   if(validationHelpers.isValidInteger(val) && val >= config["min_cards"] && val <= config["max_cards"]) {
     return true;
   }
-  return "Parameter numCards must be integer between " + config["min_cards"] + " and " + config["max_cards"];
+  return "Parameter numcards must be integer between " + config["min_cards"] + " and " + config["max_cards"];
 };
 
 validationHelpers.isValidPlayerRange = (val) => {
   if(val >= config["min_players"] && val <= config["max_players"]) {
     return true;
   }
-  return "Parameter numPlayers must be between " + config["min_players"] + " and " + config["max_players"];
+  return "Parameter numplayers must be between " + config["min_players"] + " and " + config["max_players"];
 };
 
 validationHelpers.isValidPackName = (packs) => {

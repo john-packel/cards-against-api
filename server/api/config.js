@@ -6,8 +6,8 @@ const config = {
   min_cards: 1,
   pack_names: {
     "original": true,
-    "expansion one": true,
-    "expansion two": true
+    "expansion_one": true,
+    "expansion_two": true
   }
 };
 
