@@ -16,7 +16,7 @@ export default co(function*() {
   let docs = yield col.find().toArray();
 
   if(!docs.length){
-    let hydrate = yield col.insertOne({ basedeck: BaseDeck });
+    let hydrate = yield col.insertOne(BaseDeck);
     console.log('Decks collection hydrated');
   }
 
