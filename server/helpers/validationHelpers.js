@@ -48,14 +48,14 @@ helpers.isValidPlayerRange = (val) => {
 helpers.isValidPackName = (packs) => {
   let error = false;
   let isNotValidPackName;
-
-  packs.split(' ').forEach((val) => {
-    if(!helpers.isValidString(val) || !config["pack_names"][val]) {
-      error = true;
-      isNotValidPackName = val;
-    }
-  });
-
+  if(helpers.isValidString) {
+    packs.split(' ').forEach((val) => {
+      if(!helpers.isValidString(val) || !config["pack_names"][val]) {
+        error = true;
+        isNotValidPackName = val;
+      }
+    });
+  }
   let errorMsg = 'Parameter packnames must contain all valid pack names. ' + isNotValidPackName + ' is not a valid pack name.';
   return error ? errorMsg : true; 
 };
