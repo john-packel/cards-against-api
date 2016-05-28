@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import co from 'co';
 
-import cardsController from './../database/controllers/cardsController';
-import validationHelpers from './../helpers/validationHelpers';
+import cardsController from './../../database/controllers/cardsController';
+import validationHelpers from './../../helpers/validationHelpers';
 
 const cardsRouter = Router();
 
@@ -22,9 +22,9 @@ cardsRouter.get('/', (req, res) => {
 //-----------------------------------------------------------------------------------
 function setQueryParams(req,res,next) {
   let defaultSettings = {
-  	numCards: 20,
+  	numcards: 20,
   	shuffle: false,
-  	cardType: "both"
+  	cardtype: "both"
    };
    console.log("set query param")
    // allow user parameters to override default parameters 

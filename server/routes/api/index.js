@@ -2,8 +2,8 @@ import { Router } from 'express';
 import co from 'co';
 
 // Controllers
-import cardsController from './../database/controllers/cardsController';
-import cardsRouter from './cardsRouter.js';
+import cardsController from './../../database/controllers/cardsController';
+import cardsRouter from './../cards/index.js';
 
 const apiRouter = Router();
 
