@@ -19,7 +19,9 @@ app.get('/', (req, res) => {
 app.use('/api', apiRouter);
 
 app.get('*', function(req, res){
-  res.send('page does not exist', 404);
+  res.status(404);
+  res.send('page does not exist');
+
 });
 
 app.listen(port, () => {
