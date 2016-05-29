@@ -5,13 +5,13 @@ import cardsController from './../../database/controllers/cardsController';
 import queryhelpers from './../../middleware/query.js';
 import errorhelpers from './../../middleware/error.js';
 
-const cardsRouter = Router();
+const packsRouter = Router();
 
-cardsRouter.use(queryhelpers.setQueryParams);
-cardsRouter.use(queryhelpers.validateQueryParams);
-cardsRouter.use(errorhelpers.errorHandler);
+packsRouter.use(queryhelpers.setQueryParams);
+packsRouter.use(queryhelpers.validateQueryParams);
+packsRouter.use(errorhelpers.errorHandler);
 
-cardsRouter.get('/', (req, res) => {
+packsRouter.get('/', (req, res) => {
   co(cardsController.fetchCards(req, res)).then(val => {
     res.send(val);
   }).catch((err) => {
@@ -19,4 +19,4 @@ cardsRouter.get('/', (req, res) => {
   });
 });
 
-export default cardsRouter;
+export default packsRouter;

@@ -18,6 +18,11 @@ app.get('/', (req, res) => {
 
 app.use('/api', apiRouter);
 
+app.get('*', function(req, res){
+  res.status(404);
+  res.send('page does not exist');
+});
+
 app.listen(port, () => {
   console.log('listening on port', port);
 });
