@@ -49,14 +49,15 @@ helpers.isValidPackName = (packs) => {
   let error = false;
   let isNotValidPackName;
   if(helpers.isValidString) {
-    packs.split(' ').forEach((val) => {
+    console.log("packs:", packs.split('%'));
+    packs.split('%').forEach((val) => {
       if(!helpers.isValidString(val) || !config["pack_names"][val]) {
         error = true;
         isNotValidPackName = val;
       }
     });
   }
-  let errorMsg = 'Parameter packnames must contain all valid pack names. ' + isNotValidPackName + ' is not a valid pack name.';
+  let errorMsg = 'Parameter packnames must contain all valid pack names. ' + (isNotValidPackName || 'An empty string') + ' is not a valid pack name.';
   return error ? errorMsg : true; 
 };
 
