@@ -11,12 +11,14 @@ app.use(bodyParser.json());
 
 //-----------------------------------------------------------------------------------
 import apiRouter from './routes/api/index.js';
+import keysRouter from './routes/keys/index.js';
 // ROUTES
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../', 'index.html'))
 });
 
 app.use('/api', apiRouter);
+app.use('/keys', keysRouter);
 
 app.get('*', function(req, res){
   res.status(404);
