@@ -26,11 +26,13 @@ helpers.validateQueryParams = (req,res,next) => {
       let isValid = validationHelpers.validParams[param](userParams[param]);
   
       if(isValid !== true) {
+        // new Error(isValid)
         return next(new Error(isValid));
       }
     } else {
-      // errorMsg = param + " is not a valid parameter."
-      return next(new Error("not a valid parameter"));
+      errorMsg = param + " is not a valid parameter."
+      // new Error("not a valid parameter")
+      return next(new Error(errorMsg));
     }
   } 
   next();

@@ -6,9 +6,7 @@ helpers.errorHandler = (err, req, res, next) => {
     return next(err);
   }
   if(err) {
-	console.log('err:', err);
-    res.status(500).send({ error: err });
-    return; 
+    return res.status(500).json({ error: err.message});
   }
   next();
 }
